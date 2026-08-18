@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MANTRA MILES TOUR | Unexplored Journey, Unmatched Comfort</title>
+    <meta name="description" content="Experience Gen-Z ultra-luxurious travel with Mantra Miles Tour. Book Volvo multi-axle sleeper buses, luxury staycations, charter flights, and custom holiday itineraries.">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Kannada:wght@400;600;700;800&family=Outfit:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- Lenis Smooth Scroll CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/lenis@1.1.9/dist/lenis.min.css">
+
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        obsidian: '#0A2E1F',
+                        forestObsidian: '#061E14',
+                        cyanTint: '#123D2A',
+                        cyanGlow: '#00F5D4',
+                        gold: '#E6AF2E',
+                        amber: '#FB8500',
+                        leafGreen: '#218359',
+                        glassBorder: 'rgba(230, 175, 46, 0.25)',
+                    },
+                    fontFamily: {
+                        sans: ['Outfit', 'Plus Jakarta Sans', 'sans-serif'],
+                        serif: ['"Playfair Display"', 'serif'],
+                        kannada: ['Noto Sans Kannada', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'gold-glow': '0 0 25px rgba(230, 175, 46, 0.35)',
+                        'amber-glow': '0 0 35px rgba(251, 133, 0, 0.45)',
+                        'cyan-glow': '0 0 25px rgba(0, 245, 212, 0.3)',
+                        'glass': '0 8px 32px 0 rgba(0, 0, 0, 0.45)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+
+    <!-- Lenis JS, Three.js & GSAP CDNs -->
+    <script src="https://unpkg.com/lenis@1.1.9/dist/lenis.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/MotionPathPlugin.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+</head>
+<body class="bg-forestObsidian text-white font-sans overflow-x-hidden selection:bg-gold selection:text-obsidian antialiased">
+
+    <!-- Ambient Emerald Glow Lights -->
+    <div class="fixed top-0 left-1/4 w-96 h-96 bg-gold/10 rounded-full blur-[120px] pointer-events-none z-0"></div>
+    <div class="fixed bottom-0 right-1/4 w-96 h-96 bg-leafGreen/20 rounded-full blur-[140px] pointer-events-none z-0"></div>
+    <div class="fixed top-1/2 right-10 w-80 h-80 bg-cyanGlow/5 rounded-full blur-[150px] pointer-events-none z-0"></div>
+
+    <!-- REEL / AD OFFER NOTIFICATION BANNER -->
+    <div id="reelBanner" class="hidden fixed top-20 left-1/2 -translate-x-1/2 z-50 max-w-xl w-[90%] backdrop-blur-2xl bg-forestObsidian/95 border border-gold/60 rounded-2xl p-3 shadow-gold-glow flex items-center justify-between text-xs font-bold text-gold animate-bounce">
+        <div class="flex items-center gap-2">
+            <i class="fa-solid fa-fire text-amber text-lg"></i>
+            <span id="reelBannerText">Ad Reel Offer Activated: Displaying exclusive package!</span>
+        </div>
+        <button onclick="document.getElementById('reelBanner').classList.add('hidden')" class="text-gray-400 hover:text-white">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+    </div>
+
+    <!-- STICKY GLASS NAVIGATION BAR -->
+    <header class="fixed top-0 left-0 right-0 z-50 px-4 md:px-8 py-4 transition-all duration-300" id="mainHeader">
+        <div class="max-w-7xl mx-auto backdrop-blur-xl bg-forestObsidian/85 border border-gold/25 rounded-2xl px-5 py-3.5 flex items-center justify-between shadow-glass">
+            <!-- Brand Logo (Triple-Click Triggers Master Admin Panel) -->
+            <a href="#" id="mainLogoBtn" title="Triple click for Admin Panel" class="flex items-center gap-3 group cursor-pointer select-none">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-gold to-amber flex items-center justify-center text-obsidian shadow-gold-glow group-hover:scale-105 transition-transform">
+                    <i class="fa-solid fa-compass text-xl"></i>
+                </div>
+                <div>
+                    <span class="text-xl font-black tracking-wider bg-gradient-to-r from-white via-gold to-amber bg-clip-text text-transparent">MANTRA MILES</span>
+                    <span class="block text-[10px] tracking-widest text-gold/80 font-bold uppercase -mt-1">Tour & Travels</span>
+                </div>
+            </a>
+
+            <!-- Nav Links -->
+            <nav class="hidden md:flex items-center gap-8 text-sm font-semibold text-gray-300">
+                <a href="#hero" class="hover:text-gold transition-colors flex items-center gap-1.5"><i class="fa-solid fa-house text-xs text-gold"></i> Home</a>
+                <a href="#packages" class="hover:text-gold transition-colors flex items-center gap-1.5"><i class="fa-solid fa-compass text-xs text-gold"></i> Packages</a>
+                <a href="#fleet" class="hover:text-gold transition-colors flex items-center gap-1.5"><i class="fa-solid fa-bus-simple text-xs text-gold"></i> Luxury Fleet</a>
+                <a href="#ai-itinerary" class="hover:text-gold transition-colors flex items-center gap-1.5"><i class="fa-solid fa-user-gear text-xs text-amber"></i> Travel Desk</a>
+                <a href="#reviews" class="hover:text-gold transition-colors flex items-center gap-1.5"><i class="fa-solid fa-star text-xs text-gold"></i> Reviews</a>
+            </nav>
+
+            <!-- Actions Right -->
+            <div class="flex items-center gap-3">
+                <!-- Book Now CTA (Triggers Showcase Modal) -->
+                <button onclick="openVisualShowcaseModal('Goa Luxury Beach Escape', 7499)" class="relative group px-5 py-2 rounded-xl bg-gradient-to-r from-gold to-amber text-obsidian font-extrabold text-sm shadow-gold-glow hover:shadow-amber-glow transition-all hover:scale-105 overflow-hidden">
+                    <span class="relative z-10 flex items-center gap-2">
+                        <span>Book Now</span>
+                        <i class="fa-solid fa-arrow-right text-xs transition-transform group-hover:translate-x-1"></i>
+                    </span>
+                </button>
+
+                <!-- Mobile Menu Toggle -->
+                <button id="mobileMenuBtn" onclick="toggleMobileMenu()" class="md:hidden text-gray-300 hover:text-gold text-xl p-1">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Drawer Menu -->
+        <div id="mobileDrawer" class="hidden md:hidden max-w-7xl mx-auto mt-2 backdrop-blur-2xl bg-forestObsidian/95 border border-gold/20 rounded-2xl p-6 shadow-glass space-y-4">
+            <a href="#hero" onclick="toggleMobileMenu()" class="block text-gray-200 font-semibold hover:text-gold"><i class="fa-solid fa-house text-gold mr-2"></i> Home</a>
+            <a href="#packages" onclick="toggleMobileMenu()" class="block text-gray-200 font-semibold hover:text-gold"><i class="fa-solid fa-compass text-gold mr-2"></i> Packages</a>
+            <a href="#fleet" onclick="toggleMobileMenu()" class="block text-gray-200 font-semibold hover:text-gold"><i class="fa-solid fa-bus-simple text-gold mr-2"></i> Luxury Fleet</a>
+            <a href="#ai-itinerary" onclick="toggleMobileMenu()" class="block text-gray-200 font-semibold hover:text-gold"><i class="fa-solid fa-user-gear text-amber mr-2"></i> Travel Desk</a>
+            <a href="#reviews" onclick="toggleMobileMenu()" class="block text-gray-200 font-semibold hover:text-gold"><i class="fa-solid fa-star text-gold mr-2"></i> Reviews</a>
+        </div>
+    </header>
+
+    <!-- SECTION 1: FULL EDGE-TO-EDGE SEAMLESS VIDEO HERO BANNER (100vh) -->
+    <section id="hero" class="relative h-screen w-full flex flex-col items-center justify-start pt-32 overflow-hidden">
+        <!-- Edge-to-Edge MP4 Video Background -->
+        <video id="heroBgVideo" autoplay muted loop playsinline class="w-full h-screen object-cover pointer-events-none absolute inset-0 z-0">
+            <source src="hero-video.mp4" type="video/mp4">
+            <source src="hero-video.mp4.mp4" type="video/mp4">
+        </video>
+
+        <!-- 3D Canvas Fallback (Hidden if Video Plays) -->
+        <div class="absolute inset-0 z-0">
+            <canvas id="hero3dCanvas" class="hidden w-full h-full block"></canvas>
+            <div class="absolute inset-0 bg-gradient-to-b from-forestObsidian/70 via-transparent to-forestObsidian/95 pointer-events-none"></div>
+        </div>
+
+        <!-- TIMED 3-SECOND DELAYED HERO OVERLAY TEXT WRAPPER (Prevents Text Collision) -->
+        <div id="heroTextWrapper" class="relative z-10 text-center max-w-4xl mx-auto px-4 space-y-4">
+            <!-- Elegant Metallic Gold Title (#E6AF2E) -->
+            <h1 class="text-4xl md:text-6xl lg:text-7xl font-black tracking-wider uppercase drop-shadow-[0_10px_35px_rgba(230,175,46,0.45)]">
+                <span class="text-metallic-gold" data-i18n="hero_title_metallic">MANTRA MILES TOUR</span>
+            </h1>
+
+            <!-- Minimalist Subtext -->
+            <p class="text-sm md:text-xl text-gray-200 font-bold uppercase tracking-[0.3em] drop-shadow-md" data-i18n="hero_subtitle_minimal">
+                UNEXPLORED JOURNEY, UNMATCHED COMFORT
+            </p>
+
+            <!-- Key Feature Badges -->
+            <div class="pt-2 flex flex-wrap justify-center gap-3 text-xs font-bold text-gray-300">
+                <span class="px-3.5 py-1.5 rounded-full bg-forestObsidian/80 backdrop-blur-md border border-gold/30 flex items-center gap-2">
+                    <i class="fa-solid fa-bus text-gold"></i> Multi-Axle Volvo Sleeper
+                </span>
+                <span class="px-3.5 py-1.5 rounded-full bg-forestObsidian/80 backdrop-blur-md border border-gold/30 flex items-center gap-2">
+                    <i class="fa-solid fa-plane text-cyanGlow"></i> Express Flight Charters
+                </span>
+                <span class="px-3.5 py-1.5 rounded-full bg-forestObsidian/80 backdrop-blur-md border border-gold/30 flex items-center gap-2">
+                    <i class="fa-solid fa-user-shield text-amber"></i> 24/7 Senior Tour Specialist
+                </span>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 2: FLOATING GLASS BOOKING & FILTER BAR (FILTER PILLS + QUICK INPUTS + SEARCH CTA) -->
+    <div id="floatingSearchWrapper" class="floating-filter-container relative z-20 max-w-6xl mx-auto px-4 md:px-8 -mt-20 sm:-mt-24 mb-12">
+        <div class="glass-panel rounded-3xl p-5 md:p-6 hover:shadow-gold-glow transition-all duration-500">
+            <!-- Filter Pills Row -->
+            <div id="filterPillsRow" class="flex flex-wrap gap-2 mb-4 pb-4 border-b border-gold/15">
+                <button data-filter="all" class="filter-pill active px-4 py-2 rounded-full text-xs font-extrabold transition-all">All Tours</button>
+                <button data-filter="spiritual" class="filter-pill px-4 py-2 rounded-full text-xs font-extrabold transition-all">Spiritual Trails</button>
+                <button data-filter="coastal" class="filter-pill px-4 py-2 rounded-full text-xs font-extrabold transition-all">Coastal Retreats</button>
+                <button data-filter="hill" class="filter-pill px-4 py-2 rounded-full text-xs font-extrabold transition-all">Hill Stations</button>
+            </div>
+
+            <form id="heroSearchForm" onsubmit="handleHeroSearch(event)" class="grid grid-cols-1 md:grid-cols-12 gap-3 md:gap-4 items-end">
+                <!-- Destination Hub -->
+                <div class="md:col-span-4 space-y-1.5">
+                    <label class="text-[11px] font-bold uppercase tracking-wider text-gold flex items-center gap-1.5">
+                        <i class="fa-solid fa-location-dot"></i> <span>Destination Hub</span>
+                    </label>
+                    <div class="relative">
+                        <select id="searchDestination" class="w-full bg-forestObsidian/90 border border-gold/30 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-gold transition-colors appearance-none cursor-pointer">
+                            <option value="murudeshwar">Murudeshwar - Coastal Temple</option>
+                            <option value="gokarna">Gokarna - Beach Trail</option>
+                            <option value="kukke">Kukke Subramanya - Temple</option>
+                            <option value="dharmasthala">Dharmasthala - Temple</option>
+                            <option value="coorg">Coorg - Coffee & Mist</option>
+                            <option value="ooty">Ooty - Nilgiri Hills</option>
+                            <option value="goa">Goa - Beaches & Resorts</option>
+                        </select>
+                        <i class="fa-solid fa-chevron-down absolute right-4 top-1/2 -translate-y-1/2 text-xs text-gold pointer-events-none"></i>
+                    </div>
+                </div>
+
+                <!-- Date Selector -->
+                <div class="md:col-span-3 space-y-1.5">
+                    <label class="text-[11px] font-bold uppercase tracking-wider text-gold flex items-center gap-1.5">
+                        <i class="fa-solid fa-calendar-days"></i> <span>Date</span>
+                    </label>
+                    <input type="date" id="searchDate" value="2026-08-20" class="w-full bg-forestObsidian/90 border border-gold/30 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-gold transition-colors cursor-pointer">
+                </div>
+
+                <!-- Guest Counter -->
+                <div class="md:col-span-3 space-y-1.5">
+                    <label class="text-[11px] font-bold uppercase tracking-wider text-gold flex items-center gap-1.5">
+                        <i class="fa-solid fa-user-group"></i> <span>Guests</span>
+                    </label>
+                    <div class="flex items-center gap-2 bg-forestObsidian/90 border border-gold/30 rounded-xl px-3 py-2.5">
+                        <button type="button" onclick="adjustTravellerCount(-1)" class="w-7 h-7 rounded-lg bg-gold/15 border border-gold/30 text-gold font-black hover:bg-gold hover:text-obsidian transition-all flex items-center justify-center shrink-0"><i class="fa-solid fa-minus text-xs"></i></button>
+                        <span id="travellerCount" class="flex-1 text-center text-sm font-bold text-white">2</span>
+                        <button type="button" onclick="adjustTravellerCount(1)" class="w-7 h-7 rounded-lg bg-gold/15 border border-gold/30 text-gold font-black hover:bg-gold hover:text-obsidian transition-all flex items-center justify-center shrink-0"><i class="fa-solid fa-plus text-xs"></i></button>
+                    </div>
+                </div>
+
+                <!-- Explore / Book CTA -->
+                <div class="md:col-span-2">
+                    <button type="submit" class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-gold via-amber to-gold bg-size-200 animate-gradient text-obsidian font-black text-xs uppercase tracking-wider shadow-gold-glow hover:shadow-amber-glow hover:scale-[1.02] transition-all flex items-center justify-center gap-2">
+                        <span>Explore</span>
+                        <i class="fa-solid fa-arrow-right text-sm"></i>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- SECTION 2.5: SCROLL-EXPANDING HERO MEDIA SHOWCASE -->
+    <section id="heroMedia" class="expanding-media-section relative z-10 px-0 md:px-4 mb-20">
+        <div id="heroMediaCard" class="hero-media-card relative h-[50vh] min-h-[320px] md:h-[60vh] overflow-hidden shadow-glass group mx-auto">
+            <img src="https://images.pexels.com/photos/35775960/pexels-photo-35775960.jpeg?auto=compress&cs=tinysrgb&h=650&w=940" alt="Murudeshwar coastal temple landscape" class="absolute inset-0 w-full h-full object-cover transition-transform duration-[1500ms] group-hover:scale-105" id="heroMediaImg">
+            <div class="absolute inset-0 bg-gradient-to-t from-forestObsidian via-forestObsidian/30 to-transparent"></div>
+            <div class="absolute bottom-0 left-0 right-0 p-6 md:p-12 space-y-3 text-center md:text-left">
+                <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gold/15 border border-gold/40 text-gold text-[11px] font-extrabold uppercase backdrop-blur-md">
+                    <i class="fa-solid fa-spa"></i> Featured Escape
+                </span>
+                <h2 class="font-serif text-2xl md:text-5xl font-bold text-white max-w-3xl leading-tight">Experience Pure Tranquility</h2>
+                <p class="text-xs md:text-sm text-gray-200 max-w-xl mx-auto md:mx-0">Where ancient temples meet the Arabian Sea. Murudeshwar's towering Shiva statue, pristine beaches, and cliffside resorts — all wrapped in Volvo sleeper comfort.</p>
+                <button onclick="openVisualShowcaseModal('Murudeshwar Coastal Temple Escape', 7999)" class="mt-2 inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-gold to-amber text-obsidian font-extrabold text-xs shadow-gold-glow hover:scale-105 transition-all">
+                    <span>Explore This Trip</span><i class="fa-solid fa-arrow-right text-xs"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 2.75: IMMERSIVE DESTINATION CARDS SHOWCASE -->
+    <section id="destinations" class="destination-grid-section relative z-10 max-w-7xl mx-auto px-4 md:px-8 mb-20">
+        <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-10">
+            <div class="space-y-2">
+                <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gold/10 border border-gold/30 text-gold text-xs font-extrabold uppercase">
+                    <i class="fa-solid fa-map-location-dot"></i> Signature Destinations
+                </span>
+                <h2 class="font-serif text-3xl md:text-5xl font-bold text-white tracking-tight">Explore <span class="text-metallic-gold">Karnataka's</span> Hidden Gems</h2>
+            </div>
+            <p class="text-xs md:text-sm text-gray-400 max-w-md">Scroll to reveal immersive destination stories — each crafted with temple trails, coastal sunsets, and misty highlands.</p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-5 md:gap-6">
+            <!-- Murudeshwar & Gokarna Coastal Card -->
+            <article class="dest-card group relative h-[440px] rounded-3xl overflow-hidden border border-gold/25 shadow-glass" data-reveal>
+                <div class="absolute inset-0 overflow-hidden">
+                    <img src="https://images.pexels.com/photos/27793473/pexels-photo-27793473.jpeg?auto=compress&cs=tinysrgb&h=650&w=940" alt="Murudeshwar and Gokarna coastal" class="dest-card-img w-full h-full object-cover transition-transform duration-[1200ms] group-hover:scale-110">
+                </div>
+                <div class="absolute inset-0 bg-gradient-to-t from-forestObsidian via-forestObsidian/25 to-transparent"></div>
+                <span class="absolute top-5 left-5 px-3 py-1 rounded-full bg-forestObsidian/70 border border-gold/30 text-gold text-[10px] font-bold backdrop-blur-md">Coastal & Spiritual</span>
+                <div class="absolute bottom-0 left-0 right-0 p-6 space-y-2">
+                    <h3 class="font-serif text-2xl md:text-3xl font-bold text-white">Murudeshwar & Gokarna</h3>
+                    <p class="text-[12px] text-gray-200 leading-relaxed">World's second-tallest Shiva statue and golden beach promenade at Murudeshwar, paired with Gokarna's cliff treks between Om Beach and Kudle — temple town charm meets coastal serenity.</p>
+                    <div class="flex items-center justify-between pt-2">
+                        <span class="text-gold font-black text-sm">From ₹7,999 <span class="text-gray-400 font-normal text-xs">/person</span></span>
+                        <button onclick="openVisualShowcaseModal('Murudeshwar & Gokarna Coastal Escape', 7999)" class="px-4 py-2 rounded-lg bg-gradient-to-r from-gold to-amber text-obsidian font-extrabold text-[11px] hover:scale-105 transition-all">Book Now</button>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Kukke & Dharmasthala Temple Card -->
+            <article class="dest-card group relative h-[440px] rounded-3xl overflow-hidden border border-gold/25 shadow-glass" data-reveal>
+                <div class="absolute inset-0 overflow-hidden">
+                    <img src="https://images.pexels.com/photos/38921995/pexels-photo-38921995.jpeg?auto=compress&cs=tinysrgb&h=650&w=940" alt="Kukke and Dharmasthala temple" class="dest-card-img w-full h-full object-cover transition-transform duration-[1200ms] group-hover:scale-110">
+                </div>
+                <div class="absolute inset-0 bg-gradient-to-t from-forestObsidian via-forestObsidian/25 to-transparent"></div>
+                <span class="absolute top-5 left-5 px-3 py-1 rounded-full bg-forestObsidian/70 border border-gold/30 text-gold text-[10px] font-bold backdrop-blur-md">Spiritual Trail</span>
+                <div class="absolute bottom-0 left-0 right-0 p-6 space-y-2">
+                    <h3 class="font-serif text-2xl md:text-3xl font-bold text-white">Kukke & Dharmasthala</h3>
+                    <p class="text-[12px] text-gray-200 leading-relaxed">Sacred serpent deity darshan at Kukke Subramanya nestled in the Western Ghats, combined with Dharmasthala's renowned Manjunatha temple and charitable heritage — a soul-stirring pilgrimage circuit.</p>
+                    <div class="flex items-center justify-between pt-2">
+                        <span class="text-gold font-black text-sm">From ₹5,499 <span class="text-gray-400 font-normal text-xs">/person</span></span>
+                        <button onclick="openVisualShowcaseModal('Kukke & Dharmasthala Temple Trail', 5499)" class="px-4 py-2 rounded-lg bg-gradient-to-r from-gold to-amber text-obsidian font-extrabold text-[11px] hover:scale-105 transition-all">Book Now</button>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <!-- SECTION 3: FEATURED TOUR PACKAGES (DYNAMIC RENDERER VIA LOCALSTORAGE & REEL FUNNEL) -->
+    <section id="packages" class="py-20 relative z-10 px-4 md:px-8 max-w-7xl mx-auto">
+        <div class="text-center space-y-4 max-w-2xl mx-auto mb-16">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gold/10 border border-gold/30 text-gold text-xs font-extrabold uppercase">
+                <i class="fa-solid fa-fire text-amber"></i> Trending Getaways
+            </div>
+            <h2 class="text-4xl md:text-5xl font-black text-white tracking-tight">
+                Curated <span class="bg-gradient-to-r from-gold to-amber bg-clip-text text-transparent">Luxury Experiences</span>
+            </h2>
+            <p class="text-gray-400 text-sm md:text-base">
+                Handpicked Gen-Z itineraries with Volvo Sleeper transport, 5-star staycations, and curated local guides.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="packagesGrid">
+            <!-- Dynamic JavaScript Grid Injected Here -->
+        </div>
+    </section>
+
+    <!-- SECTION 4: LUXURY FLEET SHOWCASE -->
+    <section id="fleet" class="py-24 relative z-10 bg-obsidian/40 border-y border-gold/10 px-4 md:px-8">
+        <div class="max-w-7xl mx-auto space-y-16">
+            <div class="text-center space-y-4 max-w-2xl mx-auto">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyanGlow/10 border border-cyanGlow/30 text-cyanGlow text-xs font-extrabold uppercase">
+                    <i class="fa-solid fa-bus text-amber"></i> Premium Mobility
+                </div>
+                <h2 class="text-4xl md:text-5xl font-black text-white tracking-tight">
+                    Mantra Miles <span class="bg-gradient-to-r from-gold via-amber to-cyanGlow bg-clip-text text-transparent">Luxury Fleet</span>
+                </h2>
+                <p class="text-gray-400 text-sm md:text-base">
+                    Multi-Axle Volvo Sleepers, Executive Cabs, and Private Charter Aircraft. Ride like royalty.
+                </p>
+            </div>
+
+            <!-- Fleet Tabs -->
+            <div class="flex justify-center">
+                <div class="inline-flex p-1.5 rounded-2xl bg-forestObsidian/90 border border-gold/30 backdrop-blur-xl gap-2">
+                    <button onclick="switchFleetTab('volvo')" id="fleetTab-volvo" class="px-6 py-2.5 rounded-xl text-xs md:text-sm font-extrabold transition-all bg-gradient-to-r from-gold to-amber text-obsidian shadow-gold-glow">
+                        <i class="fa-solid fa-bus-simple mr-2"></i> Volvo Sleeper Bus
+                    </button>
+                    <button onclick="switchFleetTab('cabs')" id="fleetTab-cabs" class="px-6 py-2.5 rounded-xl text-xs md:text-sm font-extrabold text-gray-400 hover:text-white transition-all">
+                        <i class="fa-solid fa-car-side mr-2"></i> Luxury Cabs & SUVs
+                    </button>
+                    <button onclick="switchFleetTab('flights')" id="fleetTab-flights" class="px-6 py-2.5 rounded-xl text-xs md:text-sm font-extrabold text-gray-400 hover:text-white transition-all">
+                        <i class="fa-solid fa-plane-departure mr-2"></i> Charter Flights
+                    </button>
+                </div>
+            </div>
+
+            <!-- Fleet Content Display -->
+            <div id="fleetDisplay" class="backdrop-blur-2xl bg-forestObsidian/70 border border-gold/30 rounded-3xl p-6 md:p-10 shadow-glass">
+                <div id="fleet-volvo" class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+                    <div class="space-y-6">
+                        <div class="inline-block px-3 py-1 rounded-lg bg-gold/10 text-gold text-xs font-bold border border-gold/30">
+                            Volvo B11R 9600 Multi-Axle 15m Sleeper
+                        </div>
+                        <h3 class="text-3xl md:text-4xl font-black text-white">First-Class Sleeper On Wheels</h3>
+                        <p class="text-gray-300 text-sm leading-relaxed">
+                            Equipped with individual ergonomic AC sleeper berths, personal 11" HD screen, high-speed Wi-Fi, USB fast chargers, anti-roll suspension, and air-purifying HEPA filtration.
+                        </p>
+
+                        <div class="flex items-center gap-4 pt-2">
+                            <button onclick="openVisualShowcaseModal('Volvo Sleeper Bus Ticket', 1499)" class="px-6 py-3 rounded-xl bg-gradient-to-r from-gold to-amber text-obsidian font-extrabold text-xs uppercase shadow-gold-glow hover:scale-105 transition-all">
+                                Book Bus Ticket (From ₹1,499)
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="relative rounded-2xl overflow-hidden border border-gold/30 bg-obsidian/40 p-6 flex flex-col items-center justify-center min-h-[300px]">
+                        <div class="w-full text-center space-y-4">
+                            <div class="inline-flex items-center justify-center w-24 h-24 rounded-full bg-gradient-to-tr from-gold/20 to-amber/20 border border-gold/40 shadow-gold-glow animate-pulse">
+                                <i class="fa-solid fa-bus text-5xl text-gold"></i>
+                            </div>
+                            <h4 class="text-xl font-bold text-white">Full-Bleed Video Background</h4>
+                            <p class="text-xs text-gray-400 max-w-md mx-auto">
+                                Watch our high-resolution Volvo bus & flight video soaring continuous in the hero banner above!
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="fleet-cabs" class="hidden grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+                    <div class="space-y-6">
+                        <div class="inline-block px-3 py-1 rounded-lg bg-gold/10 text-gold text-xs font-bold border border-gold/30">
+                            Toyota Innova Hycross & Tempo Traveller 12-Seater
+                        </div>
+                        <h3 class="text-3xl md:text-4xl font-black text-white">Chauffeur-Driven Luxury Cabs</h3>
+                        <p class="text-gray-300 text-sm leading-relaxed">
+                            Ultra-smooth Hybrid SUVs & Custom Tempo Travellers with captain reclining seats, mood ambient lighting, dual AC, and professional uniformed drivers.
+                        </p>
+
+                        <div class="flex items-center gap-4 pt-2">
+                            <button onclick="openVisualShowcaseModal('Luxury SUV Cab Hire', 4999)" class="px-6 py-3 rounded-xl bg-gradient-to-r from-gold to-amber text-obsidian font-extrabold text-xs uppercase shadow-gold-glow hover:scale-105 transition-all">
+                                Hire Cab (From ₹18/km)
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="relative rounded-2xl overflow-hidden border border-gold/30 bg-obsidian/40 p-6 flex flex-col items-center justify-center min-h-[300px]">
+                        <i class="fa-solid fa-car-side text-6xl text-gold mb-4"></i>
+                        <h4 class="text-xl font-bold text-white">Outstation & Local Rentals</h4>
+                    </div>
+                </div>
+
+                <div id="fleet-flights" class="hidden grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+                    <div class="space-y-6">
+                        <div class="inline-block px-3 py-1 rounded-lg bg-gold/10 text-gold text-xs font-bold border border-gold/30">
+                            Commercial & Private Jet Charters
+                        </div>
+                        <h3 class="text-3xl md:text-4xl font-black text-white">Skyline Express Flights</h3>
+                        <p class="text-gray-300 text-sm leading-relaxed">
+                            Discounted commercial flights and private helicopter/jet charters connecting Bengaluru, Mysuru, Goa, and Kochi.
+                        </p>
+
+                        <div class="flex items-center gap-4 pt-2">
+                            <button onclick="openVisualShowcaseModal('Flight Charter Request', 3999)" class="px-6 py-3 rounded-xl bg-gradient-to-r from-gold to-amber text-obsidian font-extrabold text-xs uppercase shadow-gold-glow hover:scale-105 transition-all">
+                                Search Flights (From ₹3,999)
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="relative rounded-2xl overflow-hidden border border-gold/30 bg-obsidian/40 p-6 flex flex-col items-center justify-center min-h-[300px]">
+                        <i class="fa-solid fa-plane text-6xl text-cyanGlow mb-4"></i>
+                        <h4 class="text-xl font-bold text-white">Sky High Comfort</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 5: INSTANT ITINERARY GENERATOR (CONNECTED TO ADITI CHAT ONBOARDING DESK WITH ZERO PAGE SCROLL) -->
+    <section id="ai-itinerary" class="py-24 relative z-10 px-4 md:px-8 max-w-7xl mx-auto">
+        <div class="backdrop-blur-2xl bg-obsidian/50 border border-gold/40 rounded-3xl p-8 md:p-12 shadow-glass relative overflow-hidden">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+                <div class="lg:col-span-5 space-y-6">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber/10 border border-amber/30 text-amber text-xs font-extrabold uppercase">
+                        <i class="fa-solid fa-user-gear"></i> Expert Travel Desk
+                    </div>
+                    <h2 class="text-3xl md:text-5xl font-black text-white leading-tight">
+                        Custom Plan Your <span class="bg-gradient-to-r from-gold to-amber bg-clip-text text-transparent">Dream Holiday</span>
+                    </h2>
+                    <p class="text-gray-300 text-sm leading-relaxed">
+                        Tell our Senior Travel Experts your preferences, budget, and travel vibe. Get a personalized day-by-day itinerary tailored in seconds (in Kannada, English, or Hindi!).
+                    </p>
+                </div>
+
+                <div class="lg:col-span-7 bg-forestObsidian/90 border border-gold/30 rounded-2xl p-6 md:p-8 shadow-glass">
+                    <form id="custom-itinerary-form" onsubmit="return generateAIItinerary(event);" class="space-y-5">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-bold uppercase text-gold mb-1.5">Destination</label>
+                                <input type="text" id="aiDest" placeholder="e.g. Dubai, Kerala, Manali" required class="w-full bg-obsidian/80 border border-gold/30 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-gold">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold uppercase text-gold mb-1.5">Duration (Days)</label>
+                                <select id="aiDays" class="w-full bg-obsidian/80 border border-gold/30 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-gold">
+                                    <option value="2">2 Days / 1 Night</option>
+                                    <option value="3" selected>3 Days / 2 Nights</option>
+                                    <option value="5">5 Days / 4 Nights</option>
+                                    <option value="7">7 Days / 6 Nights (Full Holiday)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-bold uppercase text-gold mb-1.5">Your Name</label>
+                                <input type="text" id="aiUserName" placeholder="Full Name" required class="w-full bg-obsidian/80 border border-gold/30 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-gold">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold uppercase text-gold mb-1.5">WhatsApp / Phone</label>
+                                <input type="tel" id="aiPhone" placeholder="+91 9876543210" required class="w-full bg-obsidian/80 border border-gold/30 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-gold">
+                            </div>
+                        </div>
+
+                        <button type="submit" id="btnCustomSubmit" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-gold via-amber to-gold text-obsidian font-black text-sm uppercase shadow-gold-glow hover:scale-[1.02] transition-all flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-wand-magic-sparkles text-base"></i>
+                            <span>GENERATE CUSTOM ITINERARY</span>
+                        </button>
+                    </form>
+
+                    <div id="aiItineraryResult" class="hidden mt-6 p-6 bg-obsidian/80 border border-gold/40 rounded-xl space-y-4">
+                        <div class="flex items-center justify-between border-b border-gold/20 pb-3">
+                            <h4 class="font-bold text-gold text-sm flex items-center gap-2">
+                                <i class="fa-solid fa-user-check"></i> Custom Itinerary Generated
+                            </h4>
+                            <button onclick="copyItinerary()" class="text-xs text-gray-300 hover:text-gold flex items-center gap-1">
+                                <i class="fa-solid fa-copy"></i> Copy
+                            </button>
+                        </div>
+                        <div id="aiItineraryText" class="text-xs text-gray-200 leading-relaxed font-mono whitespace-pre-line max-h-60 overflow-y-auto pr-2"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="relative z-10 border-t border-gold/20 bg-forestObsidian/95 pt-16 pb-12 px-4 md:px-8">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
+            <div class="space-y-4 md:col-span-1">
+                <a href="#" class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-gold to-amber flex items-center justify-center text-obsidian shadow-gold-glow">
+                        <i class="fa-solid fa-compass text-xl"></i>
+                    </div>
+                    <div>
+                        <span class="text-xl font-black tracking-wider bg-gradient-to-r from-white via-gold to-amber bg-clip-text text-transparent">MANTRA MILES</span>
+                        <span class="block text-[10px] tracking-widest text-gold font-bold uppercase -mt-1">Tour & Travels</span>
+                    </div>
+                </a>
+                <p class="text-xs text-gray-400 leading-relaxed">
+                    Karnataka's premier Gen-Z luxury travel company. Redefining bus travel, staycations, and custom holiday experiences.
+                </p>
+            </div>
+
+            <div class="space-y-3">
+                <h4 class="text-sm font-extrabold uppercase text-gold">Top Destinations</h4>
+                <ul class="space-y-2 text-xs text-gray-400">
+                    <li><a href="#packages" class="hover:text-white transition-colors">Goa Luxury Beach Escape</a></li>
+                    <li><a href="#packages" class="hover:text-white transition-colors">Coorg Coffee Plantation</a></li>
+                    <li><a href="#packages" class="hover:text-white transition-colors">Ooty & Coonoor Toy Train</a></li>
+                </ul>
+            </div>
+
+            <div class="space-y-3">
+                <h4 class="text-sm font-extrabold uppercase text-gold">Headquarters</h4>
+                <div class="space-y-2 text-xs text-gray-400">
+                    <p><i class="fa-solid fa-location-dot text-gold mr-2"></i> Indiranagar 100ft Road, Bengaluru, KA 560038</p>
+                    <p><i class="fa-solid fa-phone text-gold mr-2"></i> +91 80 4920 8888</p>
+                    <p><i class="fa-solid fa-envelope text-gold mr-2"></i> hello@mantramiles.com</p>
+                </div>
+            </div>
+
+            <div class="space-y-4">
+                <h4 class="text-sm font-extrabold uppercase text-gold">Instant WhatsApp Booking</h4>
+                <p class="text-xs text-gray-400">Connect directly with our trip managers on WhatsApp for instant custom quotes.</p>
+                <button onclick="redirectToWhatsAppPayment()" class="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-leafGreen hover:bg-emerald-700 text-white font-bold text-xs shadow-lg transition-all w-full justify-center">
+                    <i class="fa-brands fa-whatsapp text-lg"></i>
+                    <span>Confirm & Pay on WhatsApp</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto pt-8 border-t border-white/5 flex flex-col md:flex-row items-center justify-between text-[11px] text-gray-500 gap-4">
+            <p>(c) 2026 Mantra Miles Tour Pvt. Ltd. All rights reserved.</p>
+            <div class="flex gap-4">
+                <a href="#" class="hover:text-gray-400">Privacy Policy</a>
+                <a href="#" class="hover:text-gray-400">Terms of Service</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- INTERSTITIAL VISUAL SHOWCASE MODAL (STEP-1 PREVIEW: 2 IMAGES + 2 VIDEOS + STICKY GOLD CTA) -->
+    <div id="visualShowcaseModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-forestObsidian/90 backdrop-blur-2xl overflow-hidden">
+        <div class="relative w-full max-w-3xl bg-forestObsidian border border-gold/50 rounded-3xl shadow-gold-glow flex flex-col max-h-[92vh] overflow-hidden">
+            <!-- Header -->
+            <div class="flex items-center justify-between p-4 sm:p-6 border-b border-gold/30 shrink-0 bg-obsidian/80">
+                <div>
+                    <div class="flex items-center gap-2">
+                        <span class="px-2.5 py-0.5 rounded-full bg-gold/10 border border-gold/40 text-gold text-[10px] font-black uppercase">Step 1 Preview</span>
+                        <h3 class="text-base sm:text-xl font-black text-white" id="showcaseModalTitle">Goa Luxury Beach Escape</h3>
+                    </div>
+                    <span class="text-xs font-bold text-amber block mt-0.5" id="showcaseModalPrice">Starting ₹7,499 / person</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <button onclick="proceedFromShowcaseToAditiChat()" class="hidden sm:flex px-4 py-2 rounded-xl bg-gradient-to-r from-gold via-amber to-gold text-obsidian font-black text-xs uppercase shadow-gold-glow hover:scale-105 transition-all items-center gap-1.5">
+                        <span>Instant Booking</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                    <button onclick="closeVisualShowcaseModal()" class="w-9 h-9 rounded-full bg-obsidian border border-gold/30 text-gray-400 hover:text-white flex items-center justify-center text-lg transition-colors">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Scrollable 4-Slot Media Grid (2 Images + 2 Videos) -->
+            <div class="flex-1 overflow-y-auto p-4 space-y-4">
+                <div class="text-xs text-gray-300 font-semibold flex items-center gap-2">
+                    <i class="fa-solid fa-camera text-gold"></i>
+                    <span>Visual Experience Preview (Resort, Yacht, Sightseeing & Volvo Sleeper):</span>
+                </div>
+
+                <!-- 2x2 Media Grid -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+                    <!-- Slot 1 (Image): Resort / Staycation -->
+                    <div class="relative group h-44 sm:h-52 rounded-2xl overflow-hidden border border-gold/30 shadow-glass">
+                        <img id="showcaseImg1" src="https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?q=80&w=1000&auto=format&fit=crop" alt="Resort Preview" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+                        <span class="absolute bottom-2.5 left-3 text-[11px] font-bold text-gold flex items-center gap-1">
+                            <i class="fa-solid fa-hotel"></i> 5-Star Luxury Resort Stay
+                        </span>
+                    </div>
+
+                    <!-- Slot 2 (Image): Yacht / Activity -->
+                    <div class="relative group h-44 sm:h-52 rounded-2xl overflow-hidden border border-gold/30 shadow-glass">
+                        <img id="showcaseImg2" src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?q=80&w=1000&auto=format&fit=crop" alt="Yacht Activity" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+                        <span class="absolute bottom-2.5 left-3 text-[11px] font-bold text-amber flex items-center gap-1">
+                            <i class="fa-solid fa-ship"></i> Sunset Yacht & Watersports
+                        </span>
+                    </div>
+
+                    <!-- Slot 3 (Video): MP4 Reel Preview 1 -->
+                    <div class="relative group h-44 sm:h-52 rounded-2xl overflow-hidden border border-gold/30 shadow-glass bg-black">
+                        <video autoplay muted loop playsinline class="w-full h-full object-cover pointer-events-none">
+                            <source src="hero-video.mp4" type="video/mp4">
+                            <source src="hero-video.mp4.mp4" type="video/mp4">
+                        </video>
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+                        <span class="absolute bottom-2.5 left-3 text-[11px] font-bold text-cyanGlow flex items-center gap-1">
+                            <i class="fa-solid fa-circle-play"></i> Live Reel: Volvo Sleeper Berth
+                        </span>
+                    </div>
+
+                    <!-- Slot 4 (Video): MP4 Reel Preview 2 -->
+                    <div class="relative group h-44 sm:h-52 rounded-2xl overflow-hidden border border-gold/30 shadow-glass bg-black">
+                        <video autoplay muted loop playsinline class="w-full h-full object-cover pointer-events-none">
+                            <source src="hero-video.mp4" type="video/mp4">
+                            <source src="hero-video.mp4.mp4" type="video/mp4">
+                        </video>
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+                        <span class="absolute bottom-2.5 left-3 text-[11px] font-bold text-emerald-400 flex items-center gap-1">
+                            <i class="fa-solid fa-film"></i> Scenic Journey Vibe
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- HIGH-CONVERSION STICKY BOTTOM DOCK CTA BUTTON -->
+            <div class="sticky bottom-0 z-50 p-4 bg-forestObsidian/95 backdrop-blur-md border-t border-gold/30 shrink-0">
+                <button onclick="proceedFromShowcaseToAditiChat()" class="w-full py-4 px-6 rounded-2xl bg-gradient-to-r from-gold via-amber to-gold bg-size-200 animate-gradient text-obsidian font-black text-xs sm:text-sm uppercase tracking-wider shadow-gold-glow hover:scale-[1.02] transition-all flex items-center justify-center gap-2">
+                    <span>Proceed to Instant Booking with Aditi</span>
+                    <i class="fa-solid fa-arrow-right text-sm"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- CENTER-SCREEN REAL HUMAN AGENT BOOKING MODAL (ADITI - SENIOR TOUR SPECIALIST WITH CUSTOM ADITI.JPG AVATAR & STRICT FACE-CROPPING) -->
+    <div id="aiBookingModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-forestObsidian/85 backdrop-blur-xl overflow-y-auto">
+        <div class="relative w-full max-w-2xl max-h-[90vh] bg-forestObsidian border border-gold/40 rounded-3xl p-5 md:p-8 shadow-gold-glow flex flex-col overflow-y-auto">
+            <!-- Header (Real Human Persona Aditi with Custom Local Photo aditi.jpg) -->
+            <div class="flex items-center justify-between border-b border-gold/30 pb-3 mb-3 shrink-0">
+                <div class="flex items-center gap-3">
+                    <div class="relative w-12 h-12 rounded-full overflow-hidden border-2 border-gold shadow-gold-glow shrink-0">
+                        <img src="aditi.jpg" alt="Aditi - Senior Tour Specialist" class="w-full h-full object-cover" style="object-position: center 18%;">
+                    </div>
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <h3 class="text-base font-extrabold text-white">Aditi</h3>
+                            <span class="text-[10px] text-gray-300 bg-obsidian px-2 py-0.5 rounded-full border border-gold/30">Senior Tour Specialist</span>
+                        </div>
+                        <span class="text-[10px] text-emerald-400 font-bold flex items-center gap-1.5 mt-0.5">
+                            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> Active Onboarding Desk
+                        </span>
+                    </div>
+                </div>
+                <button onclick="closeAIBookingModal()" class="w-9 h-9 rounded-full bg-obsidian border border-gold/30 text-gray-400 hover:text-white flex items-center justify-center text-lg transition-colors">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <!-- Targeted Package Banner -->
+            <div class="flex items-center justify-between bg-obsidian/80 border border-gold/30 rounded-xl px-4 py-2 mb-3 shrink-0">
+                <div class="flex items-center gap-2">
+                    <i class="fa-solid fa-compass text-gold text-sm"></i>
+                    <span class="text-xs font-bold text-white" id="aiModalPackageTitle">Goa Luxury Beach Escape</span>
+                </div>
+                <span class="text-xs font-black text-gold" id="aiModalPackagePrice">Starting ₹7,499 / person</span>
+            </div>
+
+            <!-- Chat Stream Message Area (WhatsApp-Style Stream: Aditi Left, User Right) -->
+            <div id="aiModalChatMessages" class="flex-1 overflow-y-auto space-y-3 p-4 bg-obsidian/60 border border-gold/20 rounded-2xl mb-3 flex flex-col">
+                <!-- Dynamic Aditi Left & User Right Messages Injected Here -->
+            </div>
+
+            <!-- Interactive Bottom Action Dock (Step Option Chips) -->
+            <div id="onboardingActionDock" class="mb-3 flex flex-wrap gap-2 shrink-0">
+                <!-- Dynamic Action Chips Injected Here -->
+            </div>
+
+            <!-- Chat Input Bar -->
+            <form onsubmit="handleAIModalChatSubmit(event)" class="flex items-center gap-2 mb-3 shrink-0">
+                <input type="text" id="aiModalChatInput" placeholder="Ask Aditi or type Name & Phone..." class="w-full bg-obsidian border border-gold/30 rounded-xl px-4 py-3 text-xs text-white focus:outline-none focus:border-gold">
+                <button type="submit" class="px-5 py-3 rounded-xl bg-gradient-to-r from-gold to-amber text-obsidian font-bold text-xs shadow-gold-glow hover:scale-105 transition-all shrink-0">
+                    <i class="fa-solid fa-paper-plane mr-1"></i> Send
+                </button>
+            </form>
+
+            <!-- Footer WhatsApp Direct Action -->
+            <div class="pt-3 border-t border-gold/20 flex flex-col sm:flex-row items-center justify-between gap-3 shrink-0">
+                <span class="text-xs text-gray-400" id="onboardingFooterStatus">Complete onboarding steps above to generate your instant WhatsApp ticket.</span>
+                <button id="whatsappConfirmBtn" onclick="redirectToWhatsAppPayment()" class="w-full sm:w-auto px-6 py-3 rounded-xl bg-gradient-to-r from-leafGreen to-emerald-600 text-white font-extrabold text-xs flex items-center justify-center gap-2 shadow-lg hover:scale-105 transition-all">
+                    <i class="fa-brands fa-whatsapp text-lg"></i>
+                    <span id="whatsappBtnLabel">Confirm & Pay on WhatsApp</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- LEAD CAPTURE MODAL -->
+    <div id="leadModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-forestObsidian/85 backdrop-blur-xl overflow-y-auto">
+        <div class="relative w-full max-w-md max-h-[90vh] overflow-y-auto bg-forestObsidian border border-gold/40 rounded-3xl p-5 md:p-8 shadow-glass space-y-6">
+            <button onclick="closeLeadModal()" class="absolute top-6 right-6 text-gray-400 hover:text-white text-lg">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div>
+                <span class="text-xs font-bold text-amber uppercase tracking-wider block mb-1">Next Batch Notification</span>
+                <h3 class="text-2xl font-extrabold text-white" id="leadPackageTitle">Trip Package</h3>
+                <p class="text-xs text-gray-400 mt-1">Leave details to get priority WhatsApp alert when next batch opens!</p>
+            </div>
+
+            <form id="leadCaptureForm" onsubmit="submitLeadForm(event)" class="space-y-4">
+                <input type="hidden" id="leadPackageInput">
+
+                <div>
+                    <label class="block text-xs font-bold uppercase text-gold mb-1">Your Full Name</label>
+                    <input type="text" id="leadUserName" required placeholder="e.g. Ananya Rao" class="w-full bg-obsidian/80 border border-gold/30 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-gold">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold uppercase text-gold mb-1">WhatsApp Phone Number</label>
+                    <input type="tel" id="leadPhone" required placeholder="+91 9876543210" class="w-full bg-obsidian/80 border border-gold/30 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-gold">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold uppercase text-gold mb-1">Preferred Travel Month</label>
+                    <select id="leadMonth" class="w-full bg-obsidian/80 border border-gold/30 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-gold">
+                        <option value="September 2026">September 2026</option>
+                        <option value="October 2026">October 2026 (Dussehra Vacation)</option>
+                        <option value="November 2026">November 2026 (Diwali)</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-gold via-amber to-gold text-obsidian font-black text-sm uppercase shadow-gold-glow hover:scale-[1.02] transition-all flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-paper-plane"></i>
+                    <span>Notify Me on WhatsApp</span>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- SECRET ADMIN DASHBOARD MODAL -->
+    <div id="adminModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-forestObsidian/95 backdrop-blur-2xl">
+        <div class="relative w-full max-w-4xl bg-forestObsidian border border-gold/60 rounded-3xl p-6 md:p-8 shadow-gold-glow max-h-[90vh] overflow-y-auto space-y-6">
+            <div class="flex items-center justify-between border-b border-gold/30 pb-4">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-gold text-obsidian flex items-center justify-center font-bold text-xl">
+                        <i class="fa-solid fa-user-gear"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-black text-gold">Master Admin Dashboard</h3>
+                        <span class="text-xs text-gray-400">Live localStorage Editor - Password Gate Verified</span>
+                    </div>
+                </div>
+                <button onclick="closeAdminModal()" class="text-gray-400 hover:text-white text-xl">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="border-b border-gold/30 text-xs font-bold uppercase text-gold">
+                            <th class="py-2 px-2">Package Title</th>
+                            <th class="py-2 px-2">Price (INR)</th>
+                            <th class="py-2 px-2">Status</th>
+                            <th class="py-2 px-2">Image URL</th>
+                        </tr>
+                    </thead>
+                    <tbody id="adminPackageTableBody">
+                        <!-- Dynamic Editable Admin Rows -->
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="pt-4 border-t border-gold/20 flex flex-wrap items-center justify-between gap-4">
+                <button onclick="resetAdminDefaults()" class="px-4 py-2.5 rounded-xl bg-red-900/40 border border-red-500/50 text-red-300 font-bold text-xs hover:bg-red-900 transition-all">
+                    <i class="fa-solid fa-rotate-left mr-1"></i> Reset Defaults
+                </button>
+                <div class="flex gap-3">
+                    <button onclick="closeAdminModal()" class="px-5 py-2.5 rounded-xl bg-obsidian text-gray-300 font-bold text-xs border border-white/10 hover:text-white">
+                        Cancel
+                    </button>
+                    <button onclick="saveAdminChanges()" class="px-6 py-2.5 rounded-xl bg-gradient-to-r from-gold to-amber text-obsidian font-black text-xs uppercase shadow-gold-glow hover:scale-105 transition-all">
+                        <i class="fa-solid fa-floppy-disk mr-1"></i> Save Live Updates
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JS Modules -->
+    <script src="js/scene3d.js"></script>
+    <script src="js/ai-assistant.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
